@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Book
 
@@ -33,3 +33,42 @@ def getName(request):
         nb.delete()
         
         fb = Book.objects.filter()
+        
+        
+
+# =========================
+# BOOK VIEWS
+# =========================
+
+def book_list(request):
+
+    books = Book.objects.all()
+
+    context = {
+        "books": books
+    }
+
+    return render(
+        request,
+        "books/book_list.html",
+        context
+    )
+
+
+def book_detail(request, id):
+
+    book = get_object_or_404(
+        Book,
+        id=id
+    )
+
+    context = {
+        "book": book
+    }
+
+    return render(
+        request,
+        "books/book_detail.html",
+        context
+    )
+

@@ -29,5 +29,43 @@ def getTitle(request):
     return render(request,"home.html", {})
 
 
+from django.shortcuts import render, get_object_or_404
+from .models import Home
 
+
+# =========================
+# HOME VIEWS
+# =========================
+
+def home_list(request):
+
+    homes = Home.objects.all()
+
+    context = {
+        "homes": homes
+    }
+
+    return render(
+        request,
+        "home/home_list.html",
+        context
+    )
+
+
+def home_detail(request, id):
+
+    home = get_object_or_404(
+        Home,
+        id=id
+    )
+
+    context = {
+        "home": home
+    }
+
+    return render(
+        request,
+        "home/home_detail.html",
+        context
+    )
 
