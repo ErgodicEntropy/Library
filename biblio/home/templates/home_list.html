@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Homes</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-950 text-white min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="border-b border-gray-800 bg-gray-900/70 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+            <div>
+                <h1 class="text-2xl font-bold tracking-tight">
+                    Library<span class="text-blue-500">OS</span>
+                </h1>
+            </div>
+
+            <div class="flex items-center gap-6 text-sm font-medium">
+
+                <a href="/"
+                   class="text-blue-400 hover:text-blue-300 transition">
+                    Home
+                </a>
+
+                <a href="/books/"
+                   class="text-gray-300 hover:text-white transition">
+                    Books
+                </a>
+
+                <a href="/authors/"
+                   class="text-gray-300 hover:text-white transition">
+                    Authors
+                </a>
+
+                <a href="/publishers/"
+                   class="text-gray-300 hover:text-white transition">
+                    Publishers
+                </a>
+
+            </div>
+
+        </div>
+    </nav>
+
+
+    <!-- Hero -->
+    <section class="max-w-7xl mx-auto px-6 pt-20 pb-10">
+
+        <div class="max-w-3xl">
+
+            <p class="text-blue-400 font-semibold mb-4 uppercase tracking-widest text-sm">
+                Modern Library Platform
+            </p>
+
+            <h1 class="text-5xl md:text-6xl font-black leading-tight">
+                Manage your digital library
+                with a modern SaaS experience.
+            </h1>
+
+            <p class="text-gray-400 text-lg mt-6 leading-relaxed">
+                Organize books, authors, and publishers with a clean,
+                scalable management system built using Django and Tailwind CSS.
+            </p>
+
+            <div class="mt-8 flex gap-4">
+
+                <a href="/books/"
+                   class="bg-blue-600 hover:bg-blue-500 transition px-6 py-3 rounded-xl font-semibold shadow-lg shadow-blue-500/20">
+                    Explore Books
+                </a>
+
+                <a href="/authors/"
+                   class="border border-gray-700 hover:border-gray-500 transition px-6 py-3 rounded-xl font-semibold text-gray-200">
+                    View Authors
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Homes Grid -->
+    <section class="max-w-7xl mx-auto px-6 pb-20">
+
+        <div class="flex items-center justify-between mb-8">
+
+            <div>
+                <h2 class="text-3xl font-bold">
+                    Available Homes
+                </h2>
+
+                <p class="text-gray-400 mt-2">
+                    Browse all available home entries in the system.
+                </p>
+            </div>
+
+            <button class="bg-gray-800 hover:bg-gray-700 transition px-5 py-3 rounded-xl text-sm font-medium">
+                + Add New
+            </button>
+
+        </div>
+
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+            {% for home in homes %}
+
+                <a href="/home/{{ home.id }}/"
+                   class="group bg-gray-900 border border-gray-800 hover:border-blue-500/50 transition rounded-2xl p-6 shadow-xl hover:-translate-y-1 duration-300">
+
+                    <div class="flex items-center justify-between mb-5">
+
+                        <div class="w-12 h-12 rounded-xl bg-blue-600/10 flex items-center justify-center text-blue-400 font-bold text-lg">
+                            {{ home.title|slice:":1" }}
+                        </div>
+
+                        <span class="text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-400">
+                            Home
+                        </span>
+
+                    </div>
+
+                    <h3 class="text-2xl font-bold group-hover:text-blue-400 transition">
+                        {{ home.title }}
+                    </h3>
+
+                    <p class="text-gray-400 mt-4 line-clamp-3 leading-relaxed">
+                        {{ home.description }}
+                    </p>
+
+                    <div class="mt-6 flex items-center justify-between">
+
+                        <span class="text-sm text-gray-500">
+                            ID #{{ home.id }}
+                        </span>
+
+                        <span class="text-blue-400 text-sm font-semibold">
+                            View →
+                        </span>
+
+                    </div>
+
+                </a>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ publisher.name }}</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-950 text-white min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="border-b border-gray-800 bg-gray-900/70 backdrop-blur sticky top-0 z-50">
+
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+            <a href="/"
+               class="text-2xl font-black tracking-tight">
+                Library<span class="text-blue-500">OS</span>
+            </a>
+
+            <div class="flex items-center gap-6 text-sm font-medium">
+
+                <a href="/"
+                   class="text-gray-300 hover:text-white transition">
+                    Home
+                </a>
+
+                <a href="/books/"
+                   class="text-gray-300 hover:text-white transition">
+                    Books
+                </a>
+
+                <a href="/authors/"
+                   class="text-gray-300 hover:text-white transition">
+                    Authors
+                </a>
+
+                <a href="/publishers/"
+                   class="text-blue-400 hover:text-blue-300 transition">
+                    Publishers
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Hero -->
+    <section class="max-w-7xl mx-auto px-6 pt-16 pb-10">
+
+        <div class="flex flex-col lg:flex-row gap-10 items-start">
+
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+
+                {% if publisher.logo %}
+
+                    <img
+                        src="{{ publisher.logo.url }}"
+                        class="w-56 h-56 object-cover rounded-3xl border border-gray-800 shadow-2xl"
+                    >
+
+                {% else %}
+
+                    <div class="w-56 h-56 rounded-3xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-6xl font-black text-blue-400 shadow-2xl">
+                        {{ publisher.name|slice:":1" }}
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- Main Info -->
+            <div class="flex-1">
+
+                <div class="flex items-center gap-3 mb-5">
+
+                    <span class="px-4 py-2 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 text-sm font-semibold">
+                        Publisher
+                    </span>
+
+                    <span class="text-gray-500 text-sm">
+                        ID #{{ publisher.id }}
+                    </span>
+
+                </div>
+
+                <h1 class="text-5xl md:text-6xl font-black leading-tight">
+                    {{ publisher.name }}
+                </h1>
+
+                <p class="text-xl text-gray-400 mt-8 leading-relaxed max-w-3xl">
+                    {{ publisher.description }}
+                </p>
+
+
+                <!-- Metadata -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10">
+
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+
+                        <p class="text-gray-400 text-sm mb-2">
+                            Country
+                        </p>
+
+                        <h3 class="text-xl font-bold">
+                            {{ publisher.country }}
+                        </h3>
+
+                    </div>
+
+
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+
+                        <p class="text-gray-400 text-sm mb-2">
+                            Website
+                        </p>
+
+                        <a href="{{ publisher.website }}"
+                           class="text-blue-400 hover:text-blue-300 transition font-semibold break-all">
+
+                            {{ publisher.website }}
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="bg-gray-900 border border-gray-800 rounded-2xl p-5">
+
+                        <p class="text-gray-400 text-sm mb-2">
+                            Published Books
+                        </p>
+
+                        <h3 class="text-2xl font-bold text-blue-400">
+                            {{ publisher.books.count }}
+                        </h3>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Books Section -->
+    <section class="max-w-7xl mx-auto px-6 pb-24">
+
+        <div class="flex items-center justify-between mb-8">
+
+            <div>
+
+                <p class="text-blue-400 uppercase tracking-widest text-sm font-semibold mb-3">
+                    Catalog
+                </p>
+
+                <h2 class="text-4xl font-black">
+                    Published Books
+                </h2>
+
+            </div>
+
+            <a href="/publishers/"
+               class="bg-blue-600 hover:bg-blue-500 transition px-6 py-3 rounded-xl font-semibold shadow-lg shadow-blue-500/20">
+                ← Back
+            </a>
+
+        </div>
+
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+
+            {% for book in publisher.books.all %}
+
+                <div class="group bg-gray-900 border border-gray-800 hover:border-blue-500/40 transition rounded-3xl p-6 shadow-2xl hover:-translate-y-1 duration-300">
+
+                    <div class="flex items-center justify-between mb-6">
+
+                        <div class="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 text-xl font-bold">
+                            {{ book.title|slice:":1" }}
+                        </div>
+
+                        <span class="text-xs px-3 py-1 rounded-full bg-gray-800 text-gray-400">
+                            Book
+                        </span>
+
+                    </div>
+
+                    <h3 class="text-2xl font-bold group-hover:text-blue-400 transition">
+                        {{ book.title }}
+                    </h3>
+
+                    <p class="text-gray-400 mt-4 line-clamp-3 leading-relaxed">
+                        {{ book.description }}
+                    </p>
+
+                    <div class="mt-8 flex items-center justify-between">
+
+                        <span class="text-sm text-gray-500">
+                            Stock: {{ book.stock }}
+                        </span>
+
+                        <a href="/books/{{ book.id }}/"
+                           class="text-blue-400 hover:text-blue-300 font-semibold transition">
+                            View →
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <div class="col-span-full bg-gray-900 border border-gray-800 rounded-3xl p-10 text-center">
+
+                    <h3 class="text-2xl font-bold mb-3">
+                        No Books Found
+                    </h3>
+
+                    <p class="text-gray-400">
+                        This publisher currently has no books in the system.
+                    </p>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 py-8">
+
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+
+            <p class="text-gray-500 text-sm">
+                © 2026 LibraryOS. Modern Publishing Dashboard.
+            </p>
+
+            <div class="flex items-center gap-4">
+
+                <a href="/books/"
+                   class="text-gray-400 hover:text-white transition text-sm">
+                    Books
+                </a>
+
+                <a href="/authors/"
+                   class="text-gray-400 hover:text-white transition text-sm">
+                    Authors
+                </a>
+
+                <a href="/publishers/"
+                   class="text-gray-400 hover:text-white transition text-sm">
+                    Publishers
+                </a>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>

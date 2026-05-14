@@ -27,4 +27,4 @@ urlpatterns = [
     path('books', books),
     path('author', author_detail),
     path('publisher', publisher_detail)
-]
+]   
